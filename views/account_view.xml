@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="account_move_print_multi" model="ir.ui.view">
+            <field name="name">account.move.print.multi</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"></field>
+	    <field name="arch" type="xml">
+		    <field name="state" position="before">
+			    <button name="print_report_binary" type="object" string="Imprimir a archivo" />
+		    </field>
+		    <field name="invoice_origin" position="after">
+			    <field name="print_report" widget="binary" />
+		    </field>
+	    </field>
+    </record>
+
+
+    <record id="account_multi_print_form" model="ir.ui.view">
+            <field name="name">account.multi.print.form</field>
+            <field name="model">account.multi.print</field>
+            <field name="arch" type="xml">
+		    <form>
+			    <header>
+				    <button name="generate_multi_report" type="object" string="Procesar" />
+			</header>
+			<sheet>
+				<group>
+		                        <field name="name" />
+					<field name="print_report" widget="binary" />
+				</group>
+				<group string="Facturas">
+					<field name="account_move_ids" />
+				</group>
+			</sheet>
+                </form>
+            </field>
+    </record>
+
+
+
+    <record id="account_multi_print_tree" model="ir.ui.view">
+            <field name="name">account.multi.print.tree</field>
+            <field name="model">account.multi.print</field>
+            <field name="arch" type="xml">
+                <tree>
+                        <field name="name" />
+                        <field name="print_report" />
+                </tree>
+            </field>
+    </record>
+
+
+    <record id="action_account_multi_print" model="ir.actions.act_window">
+        <field name="name">Impresion Multiples Facturas</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.multi.print</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="account_multi_print_tree"></field>
+    </record>
+
+    <menuitem id="menu_account_multi_print"
+        name="Impresion Multiple Facturas"
+        parent="account.menu_finance_receivables"
+        sequence="150"
+	action="action_account_multi_print" />
+
+
+
+</odoo>
